@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define IS_STRING 0
@@ -21,6 +22,11 @@ void init_benc_tree(struct BencodeTree **tree, int type) {
 	(*tree)->str_value = NULL;
 	(*tree)->next = NULL;
 	(*tree)->below = NULL;
+}
+
+void init_string(struct BencodeTree **tree, char *str) {
+	(*tree)->str_value = (char *) malloc(strlen(str));
+	strcpy((*tree)->str_value, str);
 }
 
 void free_benc_tree(struct BencodeTree **tree) {
