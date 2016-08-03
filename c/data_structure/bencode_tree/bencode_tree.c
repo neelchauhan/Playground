@@ -17,6 +17,19 @@ void init_string(struct BencodeTree **tree, char *str) {
 	strcpy((*tree)->str_value, str);
 }
 
+void add_string_to_list(struct BencodeTree **tree, char *str) {
+	struct BencodeTree *str_obj;
+	init_benc_tree(&str_obj, IS_STRING);
+	init_string(&str_obj, str);
+
+	if ((*tree)->below == NULL) (*tree)->below = str_obj;
+	else {
+		struct BencodeTree *curr_obj = (*tree)->below;
+		while (curr_obj->next != NULL) curr_obj = curr_obj->next;
+		curr_obj->next = str_obj;
+	}
+}
+
 void free_benc_tree(struct BencodeTree **tree) {
 	if ((*tree)->str_value != NULL) free((*tree)->str_value);
 	if ((*tree)->next != NULL) free_benc_tree((&(*tree)->next));
