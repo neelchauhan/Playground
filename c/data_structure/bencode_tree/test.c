@@ -12,5 +12,11 @@ int main(int argc, char *argv[]) {
 	printf("%d\n", root->type);
 	printf("%s\n", root->str_value);
 	free_benc_tree(&root);
+
+	init_benc_tree(&root, IS_LIST);
+	add_string_to_list(&root, "Hi!");
+	printf("%d\n", root->type);
+	printf("%s\n", root->below->str_value);
+	free_benc_tree(&root);
 	return 0;
 }
