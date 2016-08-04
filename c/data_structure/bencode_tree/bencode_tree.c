@@ -31,13 +31,13 @@ void add_string_to_list(struct BencodeTree **tree, char *str) {
 	init_benc_tree(&str_obj, IS_STRING);
 	init_string(&str_obj, str);
 	add_obj_to_list(tree, &str_obj);
+}
 
-	//if ((*tree)->below == NULL) (*tree)->below = str_obj;
-	//else {
-	//	struct BencodeTree *curr_obj = (*tree)->below;
-	//	while (curr_obj->next != NULL) curr_obj = curr_obj->next;
-	//	curr_obj->next = str_obj;
-	//}
+void add_int_to_list(struct BencodeTree **tree, int number) {
+	struct BencodeTree *int_obj;
+	init_benc_tree(&int_obj, IS_INT);
+	int_obj->int_value = number;
+	add_obj_to_list(tree, &int_obj);
 }
 
 void free_benc_tree(struct BencodeTree **tree) {
