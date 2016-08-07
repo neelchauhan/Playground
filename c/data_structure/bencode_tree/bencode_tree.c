@@ -40,6 +40,11 @@ void add_int_to_list(struct BencodeTree **tree, int number) {
 	add_obj_to_list(tree, &int_obj);
 }
 
+void add_obj_to_dict(struct BencodeTree **tree, char *key, struct BencodeTree **add_obj) {
+	add_string_to_list(tree, key);
+	add_obj_to_list(tree, add_obj);
+}
+
 void free_benc_tree(struct BencodeTree **tree) {
 	if ((*tree)->str_value != NULL) free((*tree)->str_value);
 	if ((*tree)->next != NULL) free_benc_tree((&(*tree)->next));
