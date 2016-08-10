@@ -45,6 +45,14 @@ void add_obj_to_dict(struct BencodeTree **tree, char *key, struct BencodeTree **
 	add_obj_to_list(tree, add_obj);
 }
 
+void output_benc_str(struct BencodeTree **tree, char **out_str) {
+	*out_str = (char *) malloc(1);
+	struct BencodeTree *curr_item = *tree;
+	while (curr_item != NULL) {
+		curr_item = curr_item->next;
+	}
+}
+
 void free_benc_tree(struct BencodeTree **tree) {
 	if ((*tree)->str_value != NULL) free((*tree)->str_value);
 	if ((*tree)->next != NULL) free_benc_tree((&(*tree)->next));

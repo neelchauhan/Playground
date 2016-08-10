@@ -24,4 +24,6 @@ void add_int_to_list(struct BencodeTree **tree, int number);
 
 void add_obj_to_dict(struct BencodeTree **tree, char *key, struct BencodeTree **add_obj);
 
+void output_benc_str(struct BencodeTree **tree, char **out_str);
+
 void free_benc_tree(struct BencodeTree **tree);
