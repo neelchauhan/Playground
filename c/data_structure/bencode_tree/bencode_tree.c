@@ -1,5 +1,6 @@
 #include "bencode_tree.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -49,6 +50,17 @@ void output_benc_str(struct BencodeTree **tree, char **out_str) {
 	*out_str = (char *) malloc(1);
 	struct BencodeTree *curr_item = *tree;
 	while (curr_item != NULL) {
+		switch (curr_item->type) {
+			case IS_STRING:
+				; // Necessary because I can't define a variable at the beginning of a 'case'
+				size_t str_len = strlen(curr_item->str_value);
+				size_t int_dig = floor(log10(abs(str_len)));
+				*out_str = (char *) realloc(*out_str, str_len + int_dig + 1);
+				sprintf(*out_str, "%zd:%s", str_len, curr_item->str_value);
+				break;
+			default:
+				break;
+		}
 		curr_item = curr_item->next;
 	}
 }
