@@ -49,14 +49,21 @@ void add_obj_to_dict(struct BencodeTree **tree, char *key, struct BencodeTree **
 void output_benc_str(struct BencodeTree **tree, char **out_str) {
 	*out_str = (char *) malloc(1);
 	struct BencodeTree *curr_item = *tree;
+	size_t int_dig;
 	while (curr_item != NULL) {
 		switch (curr_item->type) {
 			case IS_STRING:
 				; // Necessary because I can't define a variable at the beginning of a 'case'
 				size_t str_len = strlen(curr_item->str_value);
-				size_t int_dig = floor(log10(abs(str_len)));
+				int_dig = floor(log10(abs(str_len)));
 				*out_str = (char *) realloc(*out_str, str_len + int_dig + 1);
 				sprintf(*out_str, "%zd:%s", str_len, curr_item->str_value);
+				break;
+			case IS_INT:
+				;
+				int_dig = floor(log10(abs(curr_item->int_value)));
+				*out_str = (char *) realloc(*out_str, int_dig + 2);
+				sprintf(*out_str, "i%de", curr_item->int_value);
 				break;
 			default:
 				break;
