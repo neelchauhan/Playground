@@ -65,6 +65,21 @@ void output_benc_str(struct BencodeTree **tree, char **out_str) {
 				*out_str = (char *) realloc(*out_str, int_dig + 2);
 				sprintf(*out_str, "i%de", curr_item->int_value);
 				break;
+			case IS_LIST:
+			case IS_DICT:
+				;
+				*out_str = (char *) realloc(*out_str, 2);
+				switch (curr_item->type) {
+					case IS_LIST:
+						sprintf(*out_str, "l");
+						break;
+					case IS_DICT:
+						sprintf(*out_str, "d");
+						break;
+				}
+				output_benc_str(&curr_item->below, out_str);
+				sprintf(*out_str, "e");
+				break;
 			default:
 				break;
 		}
