@@ -57,13 +57,13 @@ void output_benc_str(struct BencodeTree **tree, char **out_str) {
 				size_t str_len = strlen(curr_item->str_value);
 				int_dig = floor(log10(abs(str_len)));
 				*out_str = (char *) realloc(*out_str, str_len + int_dig + 1);
-				sprintf(*out_str, "%zd:%s", str_len, curr_item->str_value);
+				sprintf(*out_str, "%s%zd:%s", *out_str, str_len, curr_item->str_value);
 				break;
 			case IS_INT:
 				;
 				int_dig = floor(log10(abs(curr_item->int_value)));
 				*out_str = (char *) realloc(*out_str, int_dig + 2);
-				sprintf(*out_str, "i%de", curr_item->int_value);
+				sprintf(*out_str, "%si%de", *out_str, curr_item->int_value);
 				break;
 			case IS_LIST:
 			case IS_DICT:
@@ -71,14 +71,14 @@ void output_benc_str(struct BencodeTree **tree, char **out_str) {
 				*out_str = (char *) realloc(*out_str, 2);
 				switch (curr_item->type) {
 					case IS_LIST:
-						sprintf(*out_str, "l");
+						sprintf(*out_str, "%sl", *out_str);
 						break;
 					case IS_DICT:
-						sprintf(*out_str, "d");
+						sprintf(*out_str, "%sd", *out_str);
 						break;
 				}
 				output_benc_str(&curr_item->below, out_str);
-				sprintf(*out_str, "e");
+				sprintf(*out_str, "%se", *out_str);
 				break;
 			default:
 				break;
