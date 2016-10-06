@@ -7,6 +7,7 @@
 int main(int argc, char *argv[]) {
 	struct BencodeTree *root;
 	char *out;
+	out = (char *) calloc(1, sizeof(int));
 	init_benc_tree(&root, IS_STRING);
 	init_string(&root, "Hello!");
 
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]) {
 
 	printf("\n");
 
+	out = (char *) calloc(1, sizeof(int));
 	init_benc_tree(&root, IS_LIST);
 	add_string_to_list(&root, "Hi!");
 	printf("%d\n", root->type);

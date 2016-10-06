@@ -47,7 +47,6 @@ void add_obj_to_dict(struct BencodeTree **tree, char *key, struct BencodeTree **
 }
 
 void output_benc_str(struct BencodeTree **tree, char **out_str) {
-	*out_str = (char *) malloc(1);
 	struct BencodeTree *curr_item = *tree;
 	size_t int_dig;
 	while (curr_item != NULL) {
